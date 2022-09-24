@@ -1,35 +1,37 @@
 import { useEffect } from 'react';
 import { useState } from 'react';
 import './App.css';
+import Country from './components/Country/Country';
 
 function App() {
   return (
     <div className="App">
-      <RestCountrys></RestCountrys>
+      <RestCountry></RestCountry>
+      <Country></Country>
     </div>
   );
 }
 
-function RestCountrys() {
-  const [countrys , SetCountries]=useState([]);
+function RestCountry() {
+  const [country, SetCountries] = useState([]);
 
-  useEffect(()=>{
+  useEffect(() => {
     fetch('https://restcountries.com/v3.1/all')
-    .then(res=>res.json())
-    .then(data=>SetCountries(data))
-  },[])
+      .then(res => res.json())
+      .then(data => SetCountries(data))
+  }, [])
   return (
     <div>
-      <h1>{countrys.length}</h1>
+      <h1>{country.length}</h1>
       {
-        countrys.map(country=><Country name={country.name.common} population={country.population}></Country>)
+        country.map(country => <Countrys name={country.name.common} population={country.population}></Countrys>)
       }
     </div>
   )
 }
 
-function Country(props){
-  return(
+function Countrys(props) {
+  return (
     <div>
       <h1>Country Name : {props.name}</h1>
       <h3>Population : {props.population}</h3>
